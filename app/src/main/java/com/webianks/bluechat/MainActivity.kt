@@ -225,7 +225,7 @@ class MainActivity : AppCompatActivity(), DevicesRecyclerViewAdapter.ItemClickLi
                 // Discovery has found a device. Get the BluetoothDevice
                 // object and its info from the Intent.
                 val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-                val deviceName = device.name
+                val deviceName = device!!.name
                 val deviceHardwareAddress = device.address // MAC address
 
                 val deviceData = DeviceData(deviceName, deviceHardwareAddress)
@@ -411,7 +411,7 @@ class MainActivity : AppCompatActivity(), DevicesRecyclerViewAdapter.ItemClickLi
                 }
                 Constants.MESSAGE_DEVICE_NAME -> {
                     // save the connected device's name
-                    mConnectedDeviceName = msg.data.getString(Constants.DEVICE_NAME)
+                    mConnectedDeviceName = msg.data.getString(Constants.DEVICE_NAME)!!
                     status.text = getString(R.string.connected_to) + " " +mConnectedDeviceName
                     connectionDot.setImageDrawable(getDrawable(R.drawable.ic_circle_connected))
                     Snackbar.make(findViewById(R.id.mainScreen),"Connected to " + mConnectedDeviceName,Snackbar.LENGTH_SHORT).show()
@@ -421,7 +421,8 @@ class MainActivity : AppCompatActivity(), DevicesRecyclerViewAdapter.ItemClickLi
                 Constants.MESSAGE_TOAST -> {
                     status.text = getString(R.string.not_connected)
                     connectionDot.setImageDrawable(getDrawable(R.drawable.ic_circle_red))
-                    Snackbar.make(findViewById(R.id.mainScreen),msg.data.getString(Constants.TOAST),Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(findViewById(R.id.mainScreen),
+                        msg.data.getString(Constants.TOAST)!!,Snackbar.LENGTH_SHORT).show()
                     connected = false
                   }
             }
