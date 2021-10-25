@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity(), DevicesRecyclerViewAdapter.ItemClickLi
     private lateinit var  mConnectedDeviceName: String
     private var connected: Boolean = false
 
+
     private var mChatService: BluetoothChatService? = null
     private lateinit var chatFragment: ChatFragment
 
